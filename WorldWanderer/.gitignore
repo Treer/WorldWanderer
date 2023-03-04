@@ -1,0 +1,20 @@
+# from https://github.com/github/gitignore/blob/master/Godot.gitignore
+
+# Godot 4+ specific ignores
+.godot/
+
+# Builds/export directory
+builds
+
+# Imported translations (automatically generated from CSV files)
+*.translation
+
+#Visual studio state
+.vs/
+
+#Affinity working files
+*.afphoto
+graphics/
+
+# OSX 
+.DS_Store

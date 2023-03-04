@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=3 uid="uid://omj8kaoqjnb2"]
+
+[ext_resource type="Script" path="res://src/TileManager.cs" id="1"]
+[ext_resource type="PackedScene" uid="uid://dn6ku4del4yx5" path="res://scenes/mapview/gui_layer/gui_layer.tscn" id="2"]
+[ext_resource type="Script" path="res://scenes/mapview/ConsoleInterface.gd" id="4_d88cr"]
+[ext_resource type="Script" path="res://scenes/mapview/mapview.gd" id="5"]
+
+[node name="MapView" type="Node2D"]
+script = ExtResource("5")
+
+[node name="ParallaxBackground" type="ParallaxBackground" parent="."]
+scroll_ignore_camera_zoom = true
+
+[node name="ParallaxLayer" type="ParallaxLayer" parent="ParallaxBackground"]
+
+[node name="GuiLayer" parent="ParallaxBackground" instance=ExtResource("2")]
+
+[node name="TileManager" type="Node" parent="."]
+script = ExtResource("1")
+ParallaxLayer = NodePath("../ParallaxBackground/ParallaxLayer")
+
+[node name="ConsoleInterface" type="Node" parent="."]
+script = ExtResource("4_d88cr")
+
+[node name="SaveFileDialog" type="FileDialog" parent="."]
+initial_position = 2
+title = "Save a screenshot"
+size = Vector2i(800, 600)
+ok_button_text = "Save"
+access = 2
+filters = PackedStringArray("*.png ; PNG images")

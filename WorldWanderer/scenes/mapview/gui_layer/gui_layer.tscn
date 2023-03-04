@@ -1,0 +1,175 @@
+[gd_scene load_steps=8 format=3 uid="uid://dn6ku4del4yx5"]
+
+[ext_resource type="Script" path="res://scenes/mapview/gui_layer/gui_layer.gd" id="1_54g8j"]
+[ext_resource type="Texture2D" uid="uid://d0ou3f10fa0h6" path="res://assets/mouse_cursor_hand_small.png" id="2_h2l3g"]
+[ext_resource type="Theme" uid="uid://j18376cc1wgv" path="res://scenes/mapview/gui_layer/theme_HUD.tres" id="2_iidu7"]
+[ext_resource type="Script" path="res://scenes/mapview/gui_layer/MovieMakerMouseCursor.gd" id="3_1xwn5"]
+[ext_resource type="Texture2D" uid="uid://dguoqqrshx8yh" path="res://assets/pause_button.png" id="3_jj7ng"]
+[ext_resource type="Texture2D" uid="uid://bl1aftv6r1wea" path="res://assets/home_button.png" id="4_jsvby"]
+[ext_resource type="Script" path="res://scenes/mapview/gui_layer/MapLegendScale.gd" id="5_vn8q2"]
+
+[node name="GuiLayer" type="CanvasLayer"]
+script = ExtResource("1_54g8j")
+
+[node name="Pause" type="Control" parent="."]
+process_mode = 2
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="Pause"]
+layout_mode = 0
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.243137, 0.211765, 0.290196, 0.717647)
+
+[node name="VBoxOptions" type="VBoxContainer" parent="Pause"]
+layout_mode = 0
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Resume" type="LinkButton" parent="Pause/VBoxOptions"]
+layout_mode = 2
+focus_mode = 2
+text = "RESUME"
+
+[node name="Main Menu" type="LinkButton" parent="Pause/VBoxOptions"]
+layout_mode = 2
+focus_mode = 2
+text = "MAIN MENU"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+mouse_filter = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="MenuBar" type="HBoxContainer" parent="VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="File Menu" type="MenuButton" parent="VBoxContainer/PanelContainer/MenuBar"]
+layout_mode = 2
+text = "File"
+
+[node name="Navigate Menu" type="MenuButton" parent="VBoxContainer/PanelContainer/MenuBar"]
+layout_mode = 2
+text = "Navigate"
+
+[node name="View Menu" type="MenuButton" parent="VBoxContainer/PanelContainer/MenuBar"]
+layout_mode = 2
+focus_mode = 2
+text = "View"
+
+[node name="Generator Menu (TileServer Settings)" type="MenuButton" parent="VBoxContainer/PanelContainer/MenuBar"]
+layout_mode = 2
+focus_mode = 2
+text = "Generation
+"
+
+[node name="UI MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/UI MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme = ExtResource("2_iidu7")
+alignment = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/UI MarginContainer/HBoxContainer"]
+visible = false
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/UI MarginContainer/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="PauseButton" type="TextureButton" parent="VBoxContainer/UI MarginContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture_normal = ExtResource("3_jj7ng")
+
+[node name="HomeButton" type="TextureButton" parent="VBoxContainer/UI MarginContainer/HBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+texture_normal = ExtResource("4_jsvby")
+
+[node name="Spacer" type="Control" parent="VBoxContainer/UI MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/UI MarginContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 0
+mouse_filter = 2
+
+[node name="CoordsLabel" type="Label" parent="VBoxContainer/UI MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+text = "Meadows [10. -299]"
+
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
+layout_mode = 2
+theme = ExtResource("2_iidu7")
+
+[node name="bottomRow HBoxContainer" type="HBoxContainer" parent="VBoxContainer/MarginContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="VBoxContainer Map scale" type="VBoxContainer" parent="VBoxContainer/MarginContainer/bottomRow HBoxContainer"]
+layout_mode = 2
+
+[node name="MapLegendScale" type="Control" parent="VBoxContainer/MarginContainer/bottomRow HBoxContainer/VBoxContainer Map scale"]
+custom_minimum_size = Vector2(216, 34)
+layout_mode = 2
+mouse_filter = 2
+script = ExtResource("5_vn8q2")
+
+[node name="PixelScaleLabel" type="Label" parent="VBoxContainer/MarginContainer/bottomRow HBoxContainer/VBoxContainer Map scale"]
+visible = false
+layout_mode = 2
+size_flags_horizontal = 4
+text = "Pixels per meter: ?"
+
+[node name="Spacer" type="Control" parent="VBoxContainer/MarginContainer/bottomRow HBoxContainer/VBoxContainer Map scale"]
+custom_minimum_size = Vector2(0, 16)
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="MovieMakerMouseCursor" type="TextureRect" parent="."]
+visible = false
+top_level = true
+z_as_relative = false
+offset_right = 40.0
+offset_bottom = 44.0
+mouse_filter = 2
+texture = ExtResource("2_h2l3g")
+script = ExtResource("3_1xwn5")
+
+[connection signal="pressed" from="Pause/VBoxOptions/Resume" to="." method="_on_Resume_pressed"]
+[connection signal="pressed" from="Pause/VBoxOptions/Main Menu" to="." method="_on_Main_Menu_pressed"]
+[connection signal="pressed" from="VBoxContainer/UI MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/PauseButton" to="." method="_on_PauseButton_pressed"]
+[connection signal="pressed" from="VBoxContainer/UI MarginContainer/HBoxContainer/MarginContainer/VBoxContainer/HomeButton" to="." method="_on_HomeButton_pressed"]

@@ -48,7 +48,7 @@ func register_commands():
 			.register()
 
 		Console.add_command('synchronous_generation', self, "do_synchronous_generation_changed") \
-			.set_description('Tiles are generated synchronously with the main thread one at a time when this is true, and generated in parallel otherwise. Synchronous generation is slower and impacts the UI but can simply debugging.') \
+			.set_description('Tiles are generated synchronously with the main thread one at a time when this is true, and generated in parallel otherwise. Synchronous generation is slower and impacts the UI but can simplify debugging.') \
 			.add_argument('enable', TYPE_BOOL) \
 			.register()
 

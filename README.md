@@ -6,7 +6,7 @@
 
 ![License](https://img.shields.io/badge/license-MIT-green)
 
-This is a map viewer similar to Amidst for Minecraft, but for procedural landscape generators that are written in C#. It was written as an in‑house tool for developing my own game (so it isn't highly polished), but could be used for other games as either an in‑house development tool or an Amidst-like player-tool.
+This is a map viewer similar to Amidst for Minecraft, but for procedural landscape generators that are written in C#. It was written as an in‑house tool for developing my own game (so it isn't highly polished), but could be used for other games as either an in‑house development tool or polished into an Amidst-like player-tool.
 
 [![moving screenshot link](https://user-images.githubusercontent.com/6390507/222958354-bd3cb6f9-36dc-43ec-9aff-0eb2646bb860.jpg)](https://www.youtube.com/watch?v=-67ixJ2LEjg)
 
@@ -19,9 +19,15 @@ This is a map viewer similar to Amidst for Minecraft, but for procedural landsca
 * Screenshotting (use Ctrl+arrowkeys if you wish to move exactly one screenshot-length of distance)
 * Godot compiles to many platforms, so the map viewer can run native and accelerated on Windows, Linux etc.
 
+## Going forward
+
+TODO: Better documentation - in the meantime I hope the section below and the [Simplexland example](https://github.com/Treer/WorldWanderer/tree/master/MockGame/MapGen/Worlds/Simplexland) is clear enough.
+
+My attention will stay on gamedev rather than this tool, but any improvements I add along the way should get automatically picked up by this repository, and who knows... perhaps someone will implement cool new features or polish or mapgens and open pull requests.
+
 ## Adding MapGens
 
-Terrain generation code is normally part of the game, which is called "MockGame" in this project. The map viewer project just links to the game's assembly and finds any terrain generators using reflection.
+Terrain generation code is normally part of the game, which is called "MockGame" in this project. The map viewer project just links to the game's assembly and finds any terrain generators by using reflection.
 
 Add a class that implements ITileServer, and the map viewer will automatically find and add it to the View menu. To implement ITileServer you'll usually end up implementing 3 concrete classes
 * a class that implements [ITile](https://github.com/Treer/WorldWanderer/blob/master/MockGame/MapGen/Tiles/ITile.cs) - a container for whatever data your mapgen wishes to store about a gridsquare.
@@ -36,5 +42,5 @@ There are two example MapGens provided, the [TileTestServer](https://github.com/
 
 TileServer constructors may have optional parameters (i.e. parameters with default values), or no parameters. The only non-optional parameter a TileServer constructor can have is one of type `ulong` with a name that contains the word "seed". The value that will be passed to that parameter can be determined by the user via the "seed" console command.
 
+TileServer constructors are free to break these rules, and TileCache is an example of that, it just means they won't be picked up automatically by the mapviewer.
 
-TODO: Proper documentation - in the meantime I hope the [Simplexland example](https://github.com/Treer/WorldWanderer/tree/master/MockGame/MapGen/Worlds/Simplexland) is clear enough.

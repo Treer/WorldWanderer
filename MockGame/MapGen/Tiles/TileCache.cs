@@ -19,12 +19,12 @@ namespace MapGen.Tiles
             this.tileServer = tileServer;
         }
 
-        public int TileResolution => tileServer.TileResolution;
-        public int TileLength => tileServer.TileLength;
-        public float Scale => tileServer.Scale;
-        public Type TileType => tileServer.TileType;
-        public string DiagnosticFilenameSuffix => GetType().Name;
-        public ITileRender2D Render2D => tileServer.Render2D;
+        public int TileResolution              => tileServer.TileResolution;
+        public int TileLength                  => tileServer.TileLength;
+        public float Scale                     => tileServer.Scale;
+        public Type TileType                   => tileServer.TileType;
+        public string DiagnosticFilenameSuffix => tileServer.DiagnosticFilenameSuffix;
+        public ITileRender2D Render2D          => tileServer.Render2D;
 
         public async Task<ITile> GetTile(Vector2 worldCoord) {
             var tileCoords = TileContainingWorldCoord(worldCoord);

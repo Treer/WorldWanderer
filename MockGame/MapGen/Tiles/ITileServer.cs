@@ -7,11 +7,11 @@ namespace MapGen.Tiles
 {
     public interface ITileServer
     {
-        /// <summary>The Width/Height of the tile in the world coordinate system. Divide by Scale to get the TileResolution of the data.</summary>
+        /// <summary>The Width/Height of the tile in the world coordinate system. Divide by Scale to get the TileResolution of the Texture2D data.</summary>
         int TileLength { get; }
-        /// <summary>The Width/Height of the tile data. Multiply by Scale to get the TileLength in worldCoords.</summary>
+        /// <summary>The Width/Height of the tile data (when rendered as a 2D texture). Multiply by Scale to get the TileLength in worldCoords.</summary>
         int TileResolution { get; }
-        /// <summary>The size of a datapoint in the world coordinate system. Equal to TileLength / TileResolution</summary>
+        /// <summary>The size of a datapoint (i.e. pixel obtained from the ITileRender2D) in the world coordinate system. Equal to TileLength / TileResolution</summary>
         float Scale { get; }
 
         /// <summary>

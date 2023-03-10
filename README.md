@@ -13,11 +13,13 @@ This is a map viewer similar to Amidst for Minecraft, but for procedural landsca
 ## Features
 
 * Displays "under the mouse-cursor" terrain information text
-* Boolean settings for each map can be exposed in a Generation menu
+* Boolean settings for each map can be exposed as checkboxes in a 'Generation' menu
 * Int and float settings for each map can be exposed in the console (press Esc for console)
 * Teleport and seed commands are built into the console.
 * Screenshotting (use Ctrl+arrowkeys if you wish to move exactly one screenshot-length of distance)
 * Godot compiles to many platforms, so the map viewer can run native and accelerated on Windows, Linux etc.
+
+To run it, you'll need the .NET version of Godot 4 installed.
 
 ## Going forward
 

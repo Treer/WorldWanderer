@@ -51,10 +51,10 @@ namespace MapGen
             return autoloadConstants.Get(name); // null ref if Init() hasn't been called
         }
 
-		/// <summary>
-		/// This gets called by the TileManager.cs in the WorldWanderer Godot project (or by your game),
-		/// but if you don't want to use it you don't have to.
-		/// </summary>
+        /// <summary>
+        /// This gets called by the TileManager.cs in the WorldWanderer Godot project (or by your game),
+        /// but if you don't want to use it you don't have to.
+        /// </summary>
         public static void Init(string[] commandLineArgs, Node nodeTreeRoot, IServiceCollection? services = null) {
             instance._init(commandLineArgs, nodeTreeRoot, services);
         }

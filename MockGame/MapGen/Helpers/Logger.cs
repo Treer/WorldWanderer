@@ -70,7 +70,7 @@ namespace MapGen.Helpers
 
         public void Log(LogLevel logLevel, string message) {
             if (logLevel >= Verbosity) {
-                string formattedMessage = $"{System.Threading.Thread.CurrentThread.ManagedThreadId:X3} {DateTime.Now:HH:MM:ss.ff} {logLevel}{origin}: {message}";
+                string formattedMessage = $"{System.Threading.Thread.CurrentThread.ManagedThreadId:X3} {DateTime.Now:HH:mm:ss.ff} {logLevel}{origin}: {message}";
 
                 try {
                     if (!UnitTestDetector.IsRunningAsUnitTest) { // Godot functions crash when running under the test-runner instead of under Godot.

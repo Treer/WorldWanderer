@@ -44,10 +44,10 @@ namespace MapGen.Helpers
 
             // Available colours: black, red, green, lime, yellow, blue, magenta, pink, purple, cyan, white, orange, gray
             // https://github.com/godotengine/godot/pull/60675/files#diff-dac8c9fa12d043216f1be80cbcc56d82ea88845b5eebb7214bbb1935eb4ddef9L82
-            verbosityFormatString[(int)LogLevel.Trace]    = "[color=white]{0}[/color]"; // using white rather than grey as grey is the default that other output uses
-            verbosityFormatString[(int)LogLevel.Info]     = "{0}";
+            verbosityFormatString[(int)LogLevel.Trace]    = "[color=white]{0}[/color]"; // using white rather than gray as gray is the default that other output uses
+            verbosityFormatString[(int)LogLevel.Info]     = "[color=gray]{0}[/color]";
             verbosityFormatString[(int)LogLevel.Warning]  = "[color=yellow]{0}[/color]";
-            verbosityFormatString[(int)LogLevel.Error]    = "[color=red]{0}[/color]";
+            verbosityFormatString[(int)LogLevel.Error]    = "[color=orange]{0}[/color]";
             verbosityFormatString[(int)LogLevel.Critical] = "[color=red][b]{0}[/b][/color]";
         }
 

@@ -25,6 +25,7 @@ func _ready():
 		func (is_console_shown): EventBus.emit_signal("console_open_toggled", is_console_shown)
 	)	
 	register_commands()
+	Console.History.persistent = true
 	
 func show_console():
 	Console.open()

@@ -77,3 +77,8 @@ pause={
 [mono]
 
 export/include_scripts_content=true
+
+[rendering]
+
+rendering_device/driver="opengl3"
+renderer/rendering_method="gl_compatibility"

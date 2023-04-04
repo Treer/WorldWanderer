@@ -35,7 +35,7 @@ func push(value):
 
 
 func set_persistent(value: bool):
-	if (value and !persistent):
+	if (value and _history_file == null):
 		open_history_file()
 	else:
 		_history_file = null
@@ -49,7 +49,7 @@ func open_history_file():
 		_history_file = FileAccess.open(history_file_path, FileAccess.WRITE) # creates the file
 
 	if _history_file == null:
-		print("[color=red]Failed to open \"%s\"[/color]: Error %d" % [history_file_path, FileAccess.get_open_error()])
+		push_warning("Failed to open \"%s\", Console history will not be persisted: FileAccess.open() returned Error %d" % [history_file_path, FileAccess.get_open_error()])
 	else:
 		var lines_added = 0
 		while _history_file.get_position() < _history_file.get_length():

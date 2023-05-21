@@ -27,6 +27,8 @@ TODO: Better documentation - in the meantime I hope the section below and the [S
 
 My attention will stay on gamedev rather than this tool, but any improvements I add along the way should get automatically picked up by this repository, and who knows... perhaps someone will implement cool new features or polish or mapgens and open pull requests.
 
+An obvious next feature would be point-of-interest markers. Amidst does PoI-markers well and is what I envisage, but I won't be implementing that until I need it.
+
 ## Adding MapGens
 
 Terrain generation code is normally part of the game, which is called "MockGame" in this project. The map viewer project just links to the game's assembly and finds any terrain generators by using reflection.

@@ -7,6 +7,7 @@ extends Node2D
 @export var zoom_scale: float : get = get_zoom_scale # scale map is being displayed at, 0.5 means twice as much of the map is visible
 @export var linear_zoom: bool = false # Makes the zooming less responsive, but may be preferable if recording a video
 @export var linear_zoom_speed: float = 0.5
+@export_file("*.ini") var settings_file_path = "user://settings.ini"
 
 var velocity: Vector2
 var velocity_adj: float = 1 #Leave this at 1 for normal use, but use the console to lower it if you need to slow down scrolling and zooming for movie maker
@@ -14,6 +15,7 @@ var velocity_falloff_adj: float = 1
 var zoom_speed_adj: float = 1
 var zoom: float = 0.0 # a value between -1 and 1, with 0 meaning 1:1 pixel scale, and negatives meaning zoom out (more of the map is visible)	
 var fixed_framerate_delta: float = 0 # A non-zero value means movie writer mode is enabled and process() should use this delta rather than the one passed to it
+var settings: ConfigFile = null # may be null if settings file cannot be created
 const scrollWheel_zoom_speed = 0.1
 const max_zoom_in_factor = 4
 const max_zoom_out_factor = 8
@@ -94,6 +96,12 @@ func pre_start(params):
 # `start()` is called when the graphic transition ends.
 func start():
 	print_rich("[color=purple]mapview.gd:start() called[/color]")
+	
+	settings = ConfigFile.new();
+	var error = settings.load(settings_file_path) 
+	if error != OK and error != Error.ERR_FILE_NOT_FOUND: # if file isn't found then we just created one
+		settings = null
+	
 	#var active_scene: Node = Game.get_active_scene()
 	#print("\nCurrent active scene is: ", active_scene.name, " (", active_scene.filename, ")")
 	EventBus.emit_signal(EventBus.map_zoom_changed.get_name(), self.zoom_scale)
@@ -251,16 +259,21 @@ func on_seed_changed(world_seed: int):
 	set_world_seed(world_seed)
 
 func on_screenshot_requested():
+	if settings != null:
+		var suggested_path = settings.get_value("Screenshots", "default_path", null)
+		if suggested_path != null:
+			if !suggested_path.ends_with("/"): suggested_path += "/"
+			$SaveFileDialog.current_path = suggested_path
+	
 	# Get a filename-suitable description of the Tile source to append to the suggested filename
 	var suffix = $TileManager.DiagnosticFilenameSuffix()
 	var illegalCharsRegex = RegEx.new()
 	illegalCharsRegex.compile("[:/\\?*\"|%<>]") # The chars that is_valid_filename() will fail
 	suffix = illegalCharsRegex.sub(suffix, "", true)	
-	if suffix.length() > 0: suffix = "_%s" % [suffix]
-	
+	if suffix.length() > 0: suffix = "_%s" % [suffix]	
 	var datetime: Dictionary = Time.get_datetime_dict_from_system()
 	var suggested_file_name = "seed%s_%04d-%02d-%02d_%02d.%02d.%02d_(%d,%d)%s.png" % [$TileManager.WorldSeed, datetime.year, datetime.month, datetime.day, datetime.hour, datetime.minute, datetime.second, coords.x, coords.y, suffix]
-	$SaveFileDialog.current_file = suggested_file_name
+	$SaveFileDialog.current_file = suggested_file_name	
 	$SaveFileDialog.popup()
 	
 func on_saveFileDialog_ok(file_path):	
@@ -270,6 +283,9 @@ func on_saveFileDialog_ok(file_path):
 	var screenshot: Image = $ParallaxBackground/ParallaxLayer.get_viewport().get_texture().get_image()
 	$ParallaxBackground/GuiLayer.visible = gui_visible
 	screenshot.save_png(file_path)
+	if settings != null:
+		settings.set_value("Screenshots", "default_path", file_path.get_base_dir())
+		settings.save(settings_file_path)
 	
 	
 	

@@ -12,6 +12,7 @@ signal linear_zoom_changed(use_linear_zoom: bool)
 signal linear_zoom_speed_changed(speed: float)
 signal lerp_zoom_speed_changed(scale: float)
 signal velocity_changed(scale: float)
+signal screensize_changed(width: int, height: int)
 
 
 const CONFIGFILE_SECTION_CONSOLE = "Console"
@@ -73,6 +74,13 @@ func register_commands():
 			.add_argument('scale', TYPE_FLOAT) \
 			.register()
 
+		Console.add_command('screensize', self, "do_screensize_changed") \
+			.set_description('Set the size of the window numerically') \
+			.add_argument('Width', TYPE_INT) \
+			.add_argument('Height', TYPE_INT) \
+			.register()
+
+
 func do_teleport(x: int, y: int):
 	emit_signal(teleported.get_name(), Vector2(x, y))
 
@@ -120,3 +128,5 @@ func expose_tileserver_config(configFile):
 func do_set_command(config_key: String, value: float):
 	tileserver_config.SetValue(CONFIGFILE_SECTION_CONSOLE, config_key, value)
 
+func do_screensize_changed(width: int, height: int):
+	emit_signal(screensize_changed.get_name(), width, height)

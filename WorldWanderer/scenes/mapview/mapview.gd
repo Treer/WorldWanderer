@@ -92,6 +92,14 @@ func pre_start(params):
 			consoleInterface.write_line("Velocity was %s, now set to %s" % [velocity_adj, velocity_scale])
 			velocity_adj = velocity_scale
 	)
+
+	consoleInterface.connect(
+		consoleInterface.screensize_changed.get_name(), func (width, height):
+			width  = clamp(width,  10, 4096) # prevent typos from doing something stupid
+			height = clamp(height, 10, 4096)
+			consoleInterface.write_line("Set window size to %d, %d" % [width, height])
+			DisplayServer.window_set_size(Vector2(width, height))
+	)
 	
 # `start()` is called when the graphic transition ends.
 func start():
@@ -100,6 +108,7 @@ func start():
 	settings = ConfigFile.new();
 	var error = settings.load(settings_file_path) 
 	if error != OK and error != Error.ERR_FILE_NOT_FOUND: # if file isn't found then we just created one
+		push_warning("Failed to open \"%s\", settings not be persisted: load() returned Error %d" % [settings_file_path, error])
 		settings = null
 	
 	#var active_scene: Node = Game.get_active_scene()

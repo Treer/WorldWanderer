@@ -16,6 +16,9 @@ namespace MapGen.Tiles
         public abstract ITileServer TileServer { get; }
 
         /// <summary>
+        /// The left-most lower corner. Can be used when creating absolute Rects, e.g.
+        /// <code>new Rect2(LowerCorner, TileServer.TileLength, TileServer.TileLength);</code>
+        /// 
         /// Be very careful with this.   <br/><br/>
         /// 
         /// If your tile dimensions represent something discrete such as a block of pixels or heightmap

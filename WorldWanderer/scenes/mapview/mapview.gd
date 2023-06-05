@@ -225,7 +225,8 @@ func scroll_by_tile_size(direction: Vector2):
 		
 func display_position_information(map_coords_pos: Vector2):
 	var posInfo = $TileManager.GetPositionInformation(map_coords_pos)	
-	$ParallaxBackground/GuiLayer.pos_coords_text = "%s %s" % [posInfo.long_description, posInfo.coords]
+	$ParallaxBackground/GuiLayer.pos_coords_text = "%s %s" % [posInfo.short_description, posInfo.coords]
+	$ParallaxBackground/GuiLayer.pos_desc_text = posInfo.long_description
 	#$ParallaxBackground/GuiLayer.pos_desc_short_text = posInfo.short_description
 	#$ParallaxBackground/GuiLayer.pos_desc_long_text = posInfo.long_description
 

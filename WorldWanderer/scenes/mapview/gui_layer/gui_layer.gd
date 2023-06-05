@@ -10,6 +10,7 @@ signal console_requested
 signal screenshot_requested
 
 var pos_coords_text: String : set = set_pos_coords_text
+var pos_desc_text:   String : set = set_pos_desc_text
 #var pos_desc_short_text: String setget set_pos_desc_short_text
 #var pos_desc_long_text: String setget set_pos_desc_long_text
 
@@ -117,6 +118,11 @@ func set_pos_coords_text(text: String):
 	find_child("CoordsLabel",true).text = text
 #func set_pos_desc_short_text(text: String): find_child("DescShortLabel",true).text = text
 #func set_pos_desc_long_text(text: String): 	find_child("DescLongLabel",true).text = text
+
+func set_pos_desc_text(text: String):
+	var label = find_child("LongDescLabel",true)
+	label.visible = !text.is_empty();
+	label.text = text
 
 func _on_map_zoom_changed(mapScale_pixelsPerMeter: float):
 	find_child("MapLegendScale", true, false).MapScale = mapScale_pixelsPerMeter

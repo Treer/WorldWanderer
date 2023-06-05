@@ -129,7 +129,15 @@ mouse_filter = 2
 
 [node name="CoordsLabel" type="Label" parent="VBoxContainer/UI MarginContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
+size_flags_horizontal = 8
 text = "Meadows [10. -299]"
+horizontal_alignment = 2
+
+[node name="LongDescLabel" type="Label" parent="VBoxContainer/UI MarginContainer/HBoxContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 8
+text = "Long desc label"
+horizontal_alignment = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2

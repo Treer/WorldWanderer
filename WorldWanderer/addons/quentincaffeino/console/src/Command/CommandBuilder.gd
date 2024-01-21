@@ -48,9 +48,6 @@ func _initialize_target_callback(target, name = null):
 	if target is Callback:
 		return target
 
-	if target is Callable:
-		return target
-
 	name = name if name else self._name
 
 	var callback = CallbackBuilder.new(target).set_name(name).build()

@@ -72,12 +72,12 @@ func bind(argv = []):
 
 # @returns  Callback|null
 func build():
+	if self._target is Callable:
+		return CallableCallback.new(self._target)
+
 	if typeof(self._target) != TYPE_OBJECT:
 		print(errors["qc.callback.canCreate.first_arg"] % str(typeof(self._target)))
 		return null
-
-	if self._target is Callable:
-		return CallableCallback.new(self._target)
 
 	if typeof(self._name) != TYPE_STRING:
 		print(errors["qc.callback.canCreate.second_arg"] % str(typeof(self._name)))

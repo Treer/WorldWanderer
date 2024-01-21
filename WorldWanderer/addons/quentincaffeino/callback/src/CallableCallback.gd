@@ -1,8 +1,8 @@
-
+# Wraps a Callable inside a Callback instance
 extends "./AbstractCallback.gd"
 
 
-# @param  FuncRef  target
+# @param  Callable  target
 func _init(target):
 	super(target, Utils.Type.METHOD)
 
@@ -15,7 +15,7 @@ func ensure():
 
 # @param    Variant[]  argv
 # @returns  Variant
-func call(argv = []):
+func invoke_call(argv = []):
 	# Ensure callback target still exists
 	if !ensure():
 		print(errors["qc.callback.call.ensure_failed"] % [ self._target ])

@@ -23,8 +23,8 @@ ParallaxLayer = NodePath("../ParallaxBackground/ParallaxLayer")
 script = ExtResource("4_d88cr")
 
 [node name="SaveFileDialog" type="FileDialog" parent="."]
-initial_position = 2
 title = "Save a screenshot"
+initial_position = 2
 size = Vector2i(800, 600)
 ok_button_text = "Save"
 access = 2

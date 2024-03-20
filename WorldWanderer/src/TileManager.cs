@@ -1,4 +1,4 @@
-// Copyright 2023 Treer (https://github.com/Treer)
+// Copyright 2024 Treer (https://github.com/Treer)
 // License: MIT, see LICENSE.txt for rights granted
 
 using Godot;
@@ -74,6 +74,7 @@ namespace MapViewer
 		[Signal]
 		public delegate void tileserver_changedEventHandler(int oldServer, int newServer);
 
+		/// <seealso cref="tile_server"/>
 		public ITileServer TileServer { 
 			get { return _tileServer; }
 			private set {
@@ -81,10 +82,17 @@ namespace MapViewer
 				// Unload all the tiles first
 				AddOrRemoveRows(true, -TileRowList.Count); // Remove all the rows, rather than columns, as code assumes rows have at least one column
 				_tileServer = value;
+				_godotTileServer.WrappedITileServer = value;
 				GD.Print($"Set _tileServer to {value.GetType().Name}");
 				updateRequired = true;
 			}
 		}
+
+		/// <summary>
+		/// A Godot-accessible mirror of the <see cref="TileServer"/> property
+		/// </summary>
+		public GITileServer tile_server => _godotTileServer;
+
 
 		/// <summary>
 		/// Provides GDScript with a way to get and set the current TileServer's configuration values
@@ -108,27 +116,6 @@ namespace MapViewer
 		public const string TileServerConfigSection_Menu = "Menu";
 		/// <summary>The section name for values in TileServerConfig that can be set via console commands</summary>
 		public const string TileServerConfigSection_Console = "Console";
-
-		// TODO: Change TileLength to a getter once Godot can handle read-only properties https://github.com/godotengine/godot/issues/67167
-		/// <summary>Width/Height of the tile in the world coordinate system.</summary>
-		public int TileLength() =>
-			// expose TileLength to GDScript, since it can't use an ITileServer
-			TileServer?.TileLength ?? 0;
-
-		// TODO: Change TileLength to a getter once Godot can handle read-only properties https://github.com/godotengine/godot/issues/67167
-		/// <summary>The size of a datapoint in the world coordinate system. Equal to TileLength / TileResolution</summary>
-		public float TileScale() =>
-			// expose TileLength to GDScript, since it can't use an ITileServer
-			TileServer?.Scale ?? 1f;
-
-		// TODO: Change TileLength to a getter once Godot can handle read-only properties https://github.com/godotengine/godot/issues/67167
-		/// <summary>
-		/// Gets a string that can be appended to e.g. the end of screenshot filenames. It might be empty, or just the name of
-		/// the TileServer, or a compact representation of the TileServer configuration which generated the screencaptured tiles.
-		/// </summary>
-		public string DiagnosticFilenameSuffix() =>
-			// expose DiagnosticFilenameSuffix to GDScript, since it can't use an ITileServer
-			TileServer?.DiagnosticFilenameSuffix ?? "";
 
 		/// <summary>
 		/// should normally be false, set true for debugging.
@@ -163,6 +150,7 @@ namespace MapViewer
 		private List<List<ITile>> _tileRowList                 = new List<List<ITile>>();
 		private Dictionary<Type, string> _availableTileServers = new Dictionary<Type, string>();
 		private ITileServer _tileServer                        = testTileServer;
+		private GITileServer _godotTileServer                  = new GITileServer(testTileServer);
 
 		private Dictionary<ITile, Sprite2D> sprites = new Dictionary<ITile, Sprite2D>();
 		private List<(IDeferredTile, Texture2D)> newlyGeneratedTiles = new List<(IDeferredTile, Texture2D)>();

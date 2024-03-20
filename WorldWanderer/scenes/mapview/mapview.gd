@@ -203,7 +203,7 @@ func get_zoom_scale() -> float:
 		zoomed_scale = 1 + zoom * (max_zoom_in_factor - 1)
 	# increase the zoom amount by the scale of the tiles, so we keep the same max and min
 	# number of tiles onscreen regardless of how many kms a tile actually represents
-	var tile_scale = $TileManager.TileScale()
+	var tile_scale = $TileManager.tile_server.Scale
 	return zoomed_scale / tile_scale
 
 		
@@ -221,7 +221,7 @@ func scroll_by_window_size(direction: Vector2):
 	$ParallaxBackground.scroll_offset += $ParallaxBackground/ParallaxLayer.get_viewport_rect().size / $ParallaxBackground.scale * direction * -1
 
 func scroll_by_tile_size(direction: Vector2):
-	$ParallaxBackground.scroll_offset += $TileManager.TileLength() * direction * -1
+	$ParallaxBackground.scroll_offset += $TileManager.tile_server.TileLength * direction * -1
 		
 func display_position_information(map_coords_pos: Vector2):
 	var posInfo = $TileManager.GetPositionInformation(map_coords_pos)	
@@ -276,7 +276,7 @@ func on_screenshot_requested():
 			$SaveFileDialog.current_path = suggested_path
 	
 	# Get a filename-suitable description of the Tile source to append to the suggested filename
-	var suffix = $TileManager.DiagnosticFilenameSuffix()
+	var suffix = $TileManager.tile_server.DiagnosticFilenameSuffix
 	var illegalCharsRegex = RegEx.new()
 	illegalCharsRegex.compile("[:/\\?*\"|%<>]") # The chars that is_valid_filename() will fail
 	suffix = illegalCharsRegex.sub(suffix, "", true)	

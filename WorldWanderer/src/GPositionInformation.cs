@@ -10,7 +10,7 @@ namespace MapViewer
 	/// this class allows the TileManager to return the positional information to display 
 	/// instead of GDScript trying to operate the C# routines.
 	/// </summary>
-	public partial class PositionInformation: GodotObject
+	public partial class GPositionInformation: GodotObject
     {
 		public string coords;
 		public string long_description;

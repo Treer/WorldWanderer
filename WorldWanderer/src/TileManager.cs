@@ -343,9 +343,9 @@ namespace MapViewer
 			return result;
 		}
 
-		public PositionInformation GetPositionInformation(Vector2 worldCoord) {
+		public GPositionInformation GetPositionInformation(Vector2 worldCoord) {
 
-			var result = new PositionInformation();
+			var result = new GPositionInformation();
 			//result.coords = $"({worldCoord.X:0.##}, {worldCoord.Y:0.##})";
 			result.coords = $"[{worldCoord.X:0}, {worldCoord.Y:0}]";
 

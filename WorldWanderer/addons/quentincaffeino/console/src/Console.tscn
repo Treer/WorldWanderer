@@ -1,8 +1,8 @@
 [gd_scene load_steps=6 format=3 uid="uid://wufx2ippa0vr"]
 
-[ext_resource type="Script" path="res://addons/quentincaffeino/console/src/Console.gd" id="1"]
+[ext_resource type="Script" uid="uid://djbu6prhbrbad" path="res://addons/quentincaffeino/console/src/Console.gd" id="1"]
 [ext_resource type="Theme" uid="uid://cki0wfljgijbs" path="res://addons/quentincaffeino/console/assets/themes/Console.tres" id="2_j5mnn"]
-[ext_resource type="Script" path="res://addons/quentincaffeino/console/src/ConsoleLine.gd" id="3_ucd25"]
+[ext_resource type="Script" uid="uid://c4c7cq10f50bk" path="res://addons/quentincaffeino/console/src/ConsoleLine.gd" id="3_ucd25"]
 
 [sub_resource type="Animation" id="1"]
 length = 0.25
@@ -39,7 +39,7 @@ tracks/1/keys = {
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_xtuvw"]
 _data = {
-"fade": SubResource("1")
+&"fade": SubResource("1")
 }
 
 [node name="Console" type="CanvasLayer"]
@@ -55,7 +55,7 @@ mouse_filter = 2
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="ConsoleBox"]
 libraries = {
-"": SubResource("AnimationLibrary_xtuvw")
+&"": SubResource("AnimationLibrary_xtuvw")
 }
 
 [node name="Container" type="VBoxContainer" parent="ConsoleBox"]

@@ -49,7 +49,7 @@ namespace MapGen.Worlds.Simplexland
             bool showContourLines = tileServer.ShowContourLines;
             int width = tile.TileServer.TileResolution;
 
-            var tileImage = Image.Create(width, width, false, Image.Format.Rgb8);
+            var tileImage = Image.CreateEmpty(width, width, false, Image.Format.Rgb8);
 
             Vector3 lightingAngle = new Vector3(-1, -2, 1).Normalized(); // light should be shining from 10 - 11 o'clock
             Color color;

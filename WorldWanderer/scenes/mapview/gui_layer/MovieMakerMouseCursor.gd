@@ -13,5 +13,5 @@ func _ready():
 	# Only show cursor if MovieMaker mode is active
 	visible = OS.has_feature("movie")
 	
-func _process(delta):
+func _process(_delta: float):
 	global_position = get_viewport().get_mouse_position()

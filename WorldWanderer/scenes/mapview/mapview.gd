@@ -83,9 +83,9 @@ func pre_start(params):
 			linear_zoom_speed = speed
 	)
 	consoleInterface.connect(
-		consoleInterface.lerp_zoom_speed_changed.get_name(), func (scale):
-			consoleInterface.write_line("Zoom speed was %s, now set to %s" % [zoom_speed_adj, scale])
-			zoom_speed_adj = scale
+		consoleInterface.lerp_zoom_speed_changed.get_name(), func (new_speed_adj):
+			consoleInterface.write_line("Zoom speed was %s, now set to %s" % [zoom_speed_adj, new_speed_adj])
+			zoom_speed_adj = new_speed_adj
 	)
 	consoleInterface.connect(
 		consoleInterface.velocity_changed.get_name(), func (velocity_scale):

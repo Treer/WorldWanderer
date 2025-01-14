@@ -1,9 +1,9 @@
 [gd_scene load_steps=5 format=3 uid="uid://omj8kaoqjnb2"]
 
-[ext_resource type="Script" path="res://src/TileManager.cs" id="1"]
+[ext_resource type="Script" uid="uid://uabmy5umn0e2" path="res://src/TileManager.cs" id="1"]
 [ext_resource type="PackedScene" uid="uid://dn6ku4del4yx5" path="res://scenes/mapview/gui_layer/gui_layer.tscn" id="2"]
-[ext_resource type="Script" path="res://scenes/mapview/ConsoleInterface.gd" id="4_d88cr"]
-[ext_resource type="Script" path="res://scenes/mapview/mapview.gd" id="5"]
+[ext_resource type="Script" uid="uid://b538lv0mbv4i8" path="res://scenes/mapview/ConsoleInterface.gd" id="4_d88cr"]
+[ext_resource type="Script" uid="uid://b3l0rf561c5oq" path="res://scenes/mapview/mapview.gd" id="5"]
 
 [node name="MapView" type="Node2D"]
 script = ExtResource("5")

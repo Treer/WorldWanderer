@@ -19,7 +19,7 @@ namespace MapViewer.TestTile
         public Texture2D AsTexture(ITile tile) {
             var color = tileColor(tile);
             int width = tile.TileServer.TileResolution;
-            var tileImage = Image.Create(width, width, true, Image.Format.Rgba8);
+            var tileImage = Image.CreateEmpty(width, width, true, Image.Format.Rgba8);
             tileImage.Fill(color);
 
             return ImageTexture.CreateFromImage(tileImage);

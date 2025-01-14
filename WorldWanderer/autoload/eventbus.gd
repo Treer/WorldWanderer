@@ -9,6 +9,6 @@
 extends Node
 
 ## scale is a float, representing pixels per meter
-signal map_zoom_changed(scale)
+signal map_zoom_changed(scale: float)
 
 signal console_open_toggled(is_console_open)

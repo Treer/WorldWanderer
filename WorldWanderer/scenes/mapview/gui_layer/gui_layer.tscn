@@ -1,12 +1,12 @@
 [gd_scene load_steps=8 format=3 uid="uid://dn6ku4del4yx5"]
 
-[ext_resource type="Script" path="res://scenes/mapview/gui_layer/gui_layer.gd" id="1_54g8j"]
+[ext_resource type="Script" uid="uid://3y3y5rgvcy3q" path="res://scenes/mapview/gui_layer/gui_layer.gd" id="1_54g8j"]
 [ext_resource type="Texture2D" uid="uid://d0ou3f10fa0h6" path="res://assets/mouse_cursor_hand_small.png" id="2_h2l3g"]
 [ext_resource type="Theme" uid="uid://j18376cc1wgv" path="res://scenes/mapview/gui_layer/theme_HUD.tres" id="2_iidu7"]
-[ext_resource type="Script" path="res://scenes/mapview/gui_layer/MovieMakerMouseCursor.gd" id="3_1xwn5"]
+[ext_resource type="Script" uid="uid://cloqh4t4fvdsu" path="res://scenes/mapview/gui_layer/MovieMakerMouseCursor.gd" id="3_1xwn5"]
 [ext_resource type="Texture2D" uid="uid://dguoqqrshx8yh" path="res://assets/pause_button.png" id="3_jj7ng"]
 [ext_resource type="Texture2D" uid="uid://bl1aftv6r1wea" path="res://assets/home_button.png" id="4_jsvby"]
-[ext_resource type="Script" path="res://scenes/mapview/gui_layer/MapLegendScale.gd" id="5_vn8q2"]
+[ext_resource type="Script" uid="uid://c7pl66x2iwhb8" path="res://scenes/mapview/gui_layer/MapLegendScale.gd" id="5_vn8q2"]
 
 [node name="GuiLayer" type="CanvasLayer"]
 script = ExtResource("1_54g8j")
@@ -79,8 +79,7 @@ text = "View"
 [node name="Generator Menu (TileServer Settings)" type="MenuButton" parent="VBoxContainer/PanelContainer/MenuBar"]
 layout_mode = 2
 focus_mode = 2
-text = "Generation
-"
+text = "Generation"
 
 [node name="UI MarginContainer" type="MarginContainer" parent="VBoxContainer"]
 layout_mode = 2

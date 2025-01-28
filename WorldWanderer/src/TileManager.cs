@@ -412,6 +412,7 @@ namespace MapViewer
 							var value = sectionKeyValue.Item3.Obj;
 							// handle any conversions that require explicit casts
 							if (prop.PropertyType == typeof(float) && value is double) { value = Convert.ToSingle(value); }
+							if (prop.PropertyType == typeof(int)   && value is double) { value = Convert.ToInt32(value); }
 							if (prop.PropertyType == typeof(int)   && value is long)   { value = Convert.ToInt32(value); }
 
 							prop.SetValue(TileServer, value);

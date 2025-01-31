@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dn6ku4del4yx5"]
+[gd_scene load_steps=9 format=3 uid="uid://dn6ku4del4yx5"]
 
 [ext_resource type="Script" uid="uid://3y3y5rgvcy3q" path="res://scenes/mapview/gui_layer/gui_layer.gd" id="1_54g8j"]
 [ext_resource type="Texture2D" uid="uid://d0ou3f10fa0h6" path="res://assets/mouse_cursor_hand_small.png" id="2_h2l3g"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://cloqh4t4fvdsu" path="res://scenes/mapview/gui_layer/MovieMakerMouseCursor.gd" id="3_1xwn5"]
 [ext_resource type="Texture2D" uid="uid://dguoqqrshx8yh" path="res://assets/pause_button.png" id="3_jj7ng"]
 [ext_resource type="Texture2D" uid="uid://bl1aftv6r1wea" path="res://assets/home_button.png" id="4_jsvby"]
+[ext_resource type="FontFile" uid="uid://ckcj7gistkoau" path="res://assets/fonts/open-sans/JetBrainsMono-Medium.ttf" id="5_nkix8"]
 [ext_resource type="Script" uid="uid://c7pl66x2iwhb8" path="res://scenes/mapview/gui_layer/MapLegendScale.gd" id="5_vn8q2"]
 
 [node name="GuiLayer" type="CanvasLayer"]
@@ -126,16 +127,28 @@ size_flags_horizontal = 0
 size_flags_vertical = 0
 mouse_filter = 2
 
-[node name="CoordsLabel" type="Label" parent="VBoxContainer/UI MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="CoordsLabel" type="RichTextLabel" parent="VBoxContainer/UI MarginContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 8
-text = "Meadows [10. -299]"
+theme_override_fonts/mono_font = ExtResource("5_nkix8")
+bbcode_enabled = true
+text = "[code]Meadows [code][10. -299][/code]"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+shortcut_keys_enabled = false
 horizontal_alignment = 2
 
-[node name="LongDescLabel" type="Label" parent="VBoxContainer/UI MarginContainer/HBoxContainer/VBoxContainer2"]
+[node name="LongDescLabel" type="RichTextLabel" parent="VBoxContainer/UI MarginContainer/HBoxContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 8
+theme_override_fonts/mono_font = ExtResource("5_nkix8")
+bbcode_enabled = true
 text = "Long desc label"
+fit_content = true
+scroll_active = false
+autowrap_mode = 0
+shortcut_keys_enabled = false
 horizontal_alignment = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer"]

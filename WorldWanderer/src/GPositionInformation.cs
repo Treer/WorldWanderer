@@ -11,7 +11,7 @@ namespace MapViewer
 	/// instead of GDScript trying to operate the C# routines.
 	/// </summary>
 	public partial class GPositionInformation: GodotObject
-    {
+	{
 		public string coords;
 		public string long_description;
 		public string short_description;

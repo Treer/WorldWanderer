@@ -115,14 +115,14 @@ func _on_Resume_pressed():
 	resume()
 
 func set_pos_coords_text(text: String):
-	find_child("CoordsLabel",true).text = text
+	find_child("CoordsLabel",true).text =  "[font top_spacing=2 bottom_spacing=2][bgcolor=#00000088] %s " % text
 #func set_pos_desc_short_text(text: String): find_child("DescShortLabel",true).text = text
 #func set_pos_desc_long_text(text: String): 	find_child("DescLongLabel",true).text = text
 
 func set_pos_desc_text(text: String):
 	var label = find_child("LongDescLabel",true)
 	label.visible = !text.is_empty();
-	label.text = text
+	label.text = "[font top_spacing=2 bottom_spacing=2][bgcolor=#00000088] %s " % text
 
 func _on_map_zoom_changed(mapScale_pixelsPerMeter: float):
 	find_child("MapLegendScale", true, false).MapScale = mapScale_pixelsPerMeter
@@ -222,4 +222,3 @@ func expose_tileserver_config(configFile):
 			var settingIndex = settingsPopup.get_item_index(settingId)
 			settingsPopup.set_item_checked(settingIndex, configFile.GetValue(CONFIGFILE_SECTION_MENU, settingCaption, false))
 			settingId += 1	
-

@@ -26,6 +26,5 @@ script = ExtResource("4_d88cr")
 title = "Save a screenshot"
 initial_position = 2
 size = Vector2i(800, 600)
-ok_button_text = "Save"
 access = 2
 filters = PackedStringArray("*.png ; PNG images")

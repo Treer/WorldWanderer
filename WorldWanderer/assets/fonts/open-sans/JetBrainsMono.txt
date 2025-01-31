@@ -1,0 +1,6 @@
+https://www.jetbrains.com/lp/mono/
+Licence: SIL OPEN FONT LICENSE Version 1.1 - 26 February 2007 - https://scripts.sil.org/OFL
+Authors:
+  JetBrains <>
+  Philipp Nurullin <philipp.nurullin@jetbrains.com>
+  Konstantin Bulenkov <kb@jetbrains.com>

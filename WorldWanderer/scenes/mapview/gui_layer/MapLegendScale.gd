@@ -97,4 +97,3 @@ func getNextBase(firstDigit: int, base: int):
 		return base * 10
 	else:
 		return base
-

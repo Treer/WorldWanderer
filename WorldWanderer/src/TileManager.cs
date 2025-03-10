@@ -373,6 +373,13 @@ namespace MapViewer
 			Type tileserverType = _availableTileServers.Keys.ToArray()[tileserverIndex];
 			string name = _availableTileServers[tileserverType];
 
+			if (TileServer?.GetType() == tileserverType) {
+                // Avoid generating a duplicate TileServer after _Ready called SetTileServer(0) and then the 
+                // UI calls it again. To Save CPU and prevents shadow instances adding confusing noise to logs.
+                GD.Print($"Skipping SetTileServer({tileserverIndex}) call, since it's already the current tile server: \"{name}\" ({tileserverType.Name})");
+				return;
+			}
+
 			GD.Print($"Setting tile manager to {tileserverIndex}: \"{name}\" ({tileserverType.Name})");
 			try {
 				TileServer = ConstructTileServer(tileserverType, WorldSeed);

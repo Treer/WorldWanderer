@@ -5,6 +5,7 @@
     <RootNamespace>MapViewer</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <ProjectReference Include="..\MockGame\MapGen\MapGen.csproj" />
+    <ProjectReference Include="..\..\MapGen\GameHost\GameHost.csproj" />
+    <ProjectReference Include="..\..\MapGen\MapGen\MapGen.csproj" />
   </ItemGroup>
 </Project>

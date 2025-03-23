@@ -8,6 +8,11 @@ using System.Linq;
 using System.Reflection;
 using MapGen.Tiles;
 using MapViewer.DynamicConfig;
+using GameHosting;
+using System.Xml.Linq;
+using Microsoft.Extensions.Hosting;
+using Microsoft.Extensions.DependencyInjection;
+using System.Diagnostics;
 
 namespace MapViewer
 {
@@ -195,30 +200,29 @@ namespace MapViewer
 		/// <summary>Called when the node enters the scene tree for the first time.</summary>
 		public override void _Ready()
 		{
-			// log all exceptions until Godot has VS2022 support
-			GD.Print("Adding exception logger");
-			AppDomain.CurrentDomain.UnhandledException += (sender, e) => {
-				GD.PrintErr($"UnhandledException handler: {e.ExceptionObject}");
-			};
-			AppDomain.CurrentDomain.FirstChanceException += (sender, e) => {
-				if (e.Exception.TargetSite.DeclaringType.Assembly == Assembly.GetExecutingAssembly()) {
-					GD.PrintErr($"FirstChanceException handler: {e.Exception.Message}\n{e.Exception.StackTrace}");
-				} else {
-					GD.PrintErr($"{e.Exception.GetType().Name} somewhere not my code: {e.Exception.TargetSite.DeclaringType.Assembly}: {e.Exception.Message}\n{e.Exception.StackTrace}");
-				}
-			};
 
 			if (OS.HasFeature("movie")) {
 				// MovieMaker mode is active, time everything by frames rather than real elapsed time
 				fixedFramerateDelta = 1.0f / ProjectSettings.GetSetting("editor/movie_writer/fps").AsInt32();
 			}
 
-			MapGen.MapGen.Init(OS.GetCmdlineUserArgs(), GetTree().Root);
+			var addServicesCallbacks = new List<ConfigureServiceCallback>() {
+                //(serviceCollection, env, config)=> MapGen.MapGen.AddServices(serviceCollection, env, config),
+                MapGen.MapGen.AddServices
+			};
+            GameHost.Init(OS.GetCmdlineUserArgs(), GetTree().Root, addServicesCallbacks);
 
 			FindAvailableTileServers();
 
 			SetTileServer(0);
 			updateRequired = true;
+		}
+
+
+		protected override void Dispose(bool disposing) {
+
+			GameHosting.GameHost.Stop(); // Might need to call this earlier than Dispose(), as I'm getting errors on shutdown, find opposite of _Ready
+			base.Dispose(disposing);
 		}
 
 		// Called every frame. 'delta' is the elapsed time since the previous frame.
@@ -244,12 +248,14 @@ namespace MapViewer
 			_availableTileServers.Clear();
 			var skippedTileServers = new List<string>();
 			foreach ( var tileServerType in tileServers) {
+				_availableTileServers.Add(tileServerType, GetTileServerName(tileServerType));
+				/*
 				// only load TileServers that can be constructed with a default constructor or take only a worldseed
 				if (GetTileServerConstructor(tileServerType) != null) {
 					_availableTileServers.Add(tileServerType, GetTileServerName(tileServerType));
 				} else {
 					skippedTileServers.Add(tileServerType.Name);
-				}
+				}*/
 			}
 			if (skippedTileServers.Any()) { 
 				GD.PrintRich($"[color=orange]The following TileServer classes are skipped[/color] because no suitable constructors were found: {string.Join(", ", skippedTileServers)}");
@@ -262,6 +268,7 @@ namespace MapViewer
 			GD.Print($"Available TileServers: {string.Join(", ", TileServerList)}");
 		}
 
+		/* not needed now that we use ActivatorUtilities.CreateInstance()
 		/// <summary>Returns null, or a constructor which needs only a ulong worldseed, or a default constructor</summary>
 		private ConstructorInfo GetTileServerConstructor(Type tileServerType) {
 
@@ -277,10 +284,21 @@ namespace MapViewer
 				)
 				.OrderByDescending(x => x.GetParameters().Count(p => !p.IsOptional)) // favor the constructor with the seed parameter
 				.FirstOrDefault();
-		}
+		}*/
 
 		private ITileServer ConstructTileServer(Type tileServerType, ulong seed) {
 
+			try {
+				return (ITileServer)ActivatorUtilities.CreateInstance(GameHost.Context.Services, tileServerType, seed);
+			
+			} catch(InvalidOperationException) {
+                // The class might not have a constructor that takes a 'ulong: seed' paramter, causing CreateInstance
+                // to throw: A suitable constructor for type 'MapViewer.TestTile.TestTileServer' could not be located. Ensure the type is concrete and all parameters of a public constructor are either registered as services or passed as arguments. Also ensure no extraneous arguments are provided.
+                // So try again without the 'extraneous' seed argument.
+                return (ITileServer)ActivatorUtilities.CreateInstance(GameHost.Context.Services, tileServerType);
+            }
+
+            /* Old implementation that didn't do automatic dependency injection
 			var constructorInfo = GetTileServerConstructor(tileServerType);
 
 			var arguments = new object[constructorInfo.GetParameters().Count()];
@@ -292,7 +310,8 @@ namespace MapViewer
 				arguments[0] = seed;
 			}
 			return (ITileServer)constructorInfo.Invoke(arguments);
-		}
+			*/
+        }
 
 		private string GetTileServerName(Type tileServerType) {
 
@@ -374,9 +393,9 @@ namespace MapViewer
 			string name = _availableTileServers[tileserverType];
 
 			if (TileServer?.GetType() == tileserverType) {
-                // Avoid generating a duplicate TileServer after _Ready called SetTileServer(0) and then the 
-                // UI calls it again. To Save CPU and prevents shadow instances adding confusing noise to logs.
-                GD.Print($"Skipping SetTileServer({tileserverIndex}) call, since it's already the current tile server: \"{name}\" ({tileserverType.Name})");
+				// Avoid generating a duplicate TileServer after _Ready called SetTileServer(0) and then the 
+				// UI calls it again. To Save CPU and prevents shadow instances adding confusing noise to logs.
+				GD.Print($"Skipping SetTileServer({tileserverIndex}) call, since it's already the current tile server: \"{name}\" ({tileserverType.Name})");
 				return;
 			}
 

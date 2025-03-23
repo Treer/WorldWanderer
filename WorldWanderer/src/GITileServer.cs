@@ -4,6 +4,7 @@
 using Godot;
 using MapGen.Tiles;
 using System;
+using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
 namespace MapViewer
@@ -12,6 +13,7 @@ namespace MapViewer
     /// <summary>
     /// Wraps a GodotObject around an ITileServer to allow Godot to access the methods and properties exposed by the interface
     /// </summary>
+    [HiddenTileServer]
     public partial class GITileServer : GodotObject, ITileServer // implements ITileServer so the compiler will ensure it exposes everything in the interface and is correct
     {
         public ITileServer WrappedITileServer { get; set; }

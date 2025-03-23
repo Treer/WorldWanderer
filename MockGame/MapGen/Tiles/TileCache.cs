@@ -11,6 +11,7 @@ namespace MapGen.Tiles
     /// Wraps an ITileServer, caching generated tiles.
     /// perhaps rename to TileLayer?
     /// </summary>
+    [HiddenTileServer]
     public class TileCache : ITileServer
     {
         private ITileServer tileServer;

@@ -207,10 +207,10 @@ namespace MapViewer
 			}
 
 			var addServicesCallbacks = new List<ConfigureServiceCallback>() {
-                //(serviceCollection, env, config)=> MapGen.MapGen.AddServices(serviceCollection, env, config),
-                MapGen.MapGen.AddServices
+				//(serviceCollection, env, config)=> MapGen.MapGen.AddServices(serviceCollection, env, config),
+				MapGen.MapGen.AddServices
 			};
-            GameHost.Init(OS.GetCmdlineUserArgs(), GetTree().Root, addServicesCallbacks);
+			GameHost.Init(OS.GetCmdlineUserArgs(), GetTree().Root, addServicesCallbacks);
 
 			FindAvailableTileServers();
 
@@ -292,13 +292,13 @@ namespace MapViewer
 				return (ITileServer)ActivatorUtilities.CreateInstance(GameHost.Context.Services, tileServerType, seed);
 			
 			} catch(InvalidOperationException) {
-                // The class might not have a constructor that takes a 'ulong: seed' paramter, causing CreateInstance
-                // to throw: A suitable constructor for type 'MapViewer.TestTile.TestTileServer' could not be located. Ensure the type is concrete and all parameters of a public constructor are either registered as services or passed as arguments. Also ensure no extraneous arguments are provided.
-                // So try again without the 'extraneous' seed argument.
-                return (ITileServer)ActivatorUtilities.CreateInstance(GameHost.Context.Services, tileServerType);
-            }
+				// The class might not have a constructor that takes a 'ulong: seed' paramter, causing CreateInstance
+				// to throw: A suitable constructor for type 'MapViewer.TestTile.TestTileServer' could not be located. Ensure the type is concrete and all parameters of a public constructor are either registered as services or passed as arguments. Also ensure no extraneous arguments are provided.
+				// So try again without the 'extraneous' seed argument.
+				return (ITileServer)ActivatorUtilities.CreateInstance(GameHost.Context.Services, tileServerType);
+			}
 
-            /* Old implementation that didn't do automatic dependency injection
+			/* Old implementation that didn't do automatic dependency injection
 			var constructorInfo = GetTileServerConstructor(tileServerType);
 
 			var arguments = new object[constructorInfo.GetParameters().Count()];
@@ -311,7 +311,7 @@ namespace MapViewer
 			}
 			return (ITileServer)constructorInfo.Invoke(arguments);
 			*/
-        }
+		}
 
 		private string GetTileServerName(Type tileServerType) {
 

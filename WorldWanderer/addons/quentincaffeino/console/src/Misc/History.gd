@@ -15,7 +15,7 @@ func _init(maxLength):
 	set_persistent(persistent)
 
 
-# @returns  History
+## Returns  History
 func print_all():
 	var i = 1
 	for command in _collection:
@@ -35,7 +35,7 @@ func push(value):
 		
 		_push_to_collection(value)
 
-# private method
+## private method
 func _push_to_collection(value: String):
 	_collection.push_back(value)
 
@@ -77,8 +77,8 @@ func open_history_file():
 				_history_file.store_line(line)
 			_history_file.flush()
 
-# Moves the internal iterator position to the next element and returns this element.
-# @returns  String|null
+## Moves the internal iterator position to the next element and returns this element.  [br]
+## Returns  String|null
 func next():
 	if _currentIndex < _collection.size() - 1:
 		_currentIndex += 1
@@ -87,8 +87,8 @@ func next():
 	return null
 
 
-# Moves the internal iterator position to the previous element and returns this element.
-# @returns  String|null
+## Moves the internal iterator position to the previous element and returns this element. [br]
+## Returns  String|null
 func previous():
 	if _currentIndex > 0:
 		_currentIndex -= 1
@@ -97,8 +97,8 @@ func previous():
 	return null
 
 
-# Gets the element of the collection at the current internal iterator position.
-# @returns  String|null
+## Gets the element of the collection at the current internal iterator position. [br]
+## Returns  String|null
 func current():
 	if _collection.size() > 0:
 		return _collection[_currentIndex]

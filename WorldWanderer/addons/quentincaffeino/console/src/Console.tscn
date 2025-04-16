@@ -71,8 +71,8 @@ mouse_filter = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
-focus_next = NodePath("../LineEdit")
-focus_previous = NodePath("../LineEdit")
+focus_next = NodePath("../ConsoleLine")
+focus_previous = NodePath("../ConsoleLine")
 theme = ExtResource("2_j5mnn")
 
 [node name="ConsoleLine" type="LineEdit" parent="ConsoleBox/Container"]

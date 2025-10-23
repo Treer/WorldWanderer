@@ -17,15 +17,14 @@ using Microsoft.Extensions.Hosting;
 
 namespace GameHosting
 {
-
-    /// <summary>
-    /// A callback which allows services to be added to the ServiceCollection before it is built/finalized into the ServiceProvider
-    /// </summary>
-    /// <param name="serviceCollection"></param>
-    /// <param name="environment"></param>
-    /// <param name="configuration"></param>
-    public delegate void ConfigureServiceCallback(IServiceCollection serviceCollection, IHostEnvironment environment, IConfigurationManager configuration);
-
+    public interface IHostSubsystem {
+        /// <summary>
+        /// A callback which allows services to be added to the ServiceCollection before it
+        /// is built/finalized into the ServiceProvider.
+        /// </summary>
+        /// <param name="serviceCollection">Add your services to this collection to have them included in the service provider</param>
+        void ConfigureServices(IServiceCollection serviceCollection, IHostEnvironment environment, IConfigurationManager configuration) { }
+    }
 
     /// <summary>
     /// Access via singleton MapGen.Context (MapGen.Init() must have been be called)
@@ -73,11 +72,11 @@ namespace GameHosting
         /// This gets called by the TileManager.cs in the WorldWanderer Godot project (or by your game),
         /// but if you don't want to use it you don't have to.
         /// </summary>
-        public static void Init(string[] commandLineArgs, Node nodeTreeRoot, IEnumerable<ConfigureServiceCallback>? configureServices = null) {
-            instance._init(commandLineArgs, nodeTreeRoot, configureServices);
+        public static void Init(string[] commandLineArgs, Node nodeTreeRoot, IEnumerable<IHostSubsystem>? hostSubsystems = null) {
+            instance._init(commandLineArgs, nodeTreeRoot, hostSubsystems);
         }
 
-        private void _init(string[] commandLineArgs, Node nodeTreeRoot, IEnumerable<ConfigureServiceCallback>? configureServices = null) {
+        private void _init(string[] commandLineArgs, Node nodeTreeRoot, IEnumerable<IHostSubsystem>? hostSubsystems = null) {
 
             autoloadConstants = nodeTreeRoot.GetNode<Node>("Constants");
             if (autoloadConstants == null) {
@@ -90,9 +89,9 @@ namespace GameHosting
             // so the C# game and mapgen can use the same collection
 
             IServiceCollection serviceCollection = new ServiceCollection();
-            foreach (var callback in configureServices ?? Enumerable.Empty<ConfigureServiceCallback>()) {
+            foreach (var hostSubsystem in hostSubsystems ?? Enumerable.Empty<IHostSubsystem>()) {
                 // this stand-in file for my game's generic host doesn't have IHostEnvironment or IConfigurationManager.
-                callback(serviceCollection, null, null);
+                hostSubsystem.ConfigureServices(serviceCollection, null, null);
             }
             Services = serviceCollection.BuildServiceProvider(); // Services get disposed with the service provider, so keeping it instead of using() {} it.
 

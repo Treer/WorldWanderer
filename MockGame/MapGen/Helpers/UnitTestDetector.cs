@@ -20,7 +20,7 @@ namespace MapGen.Helpers
 
                 var assemName = assem.FullName?.ToLowerInvariant() ?? "null";
 
-                if (assemName.StartsWith("xunit.runner") || assemName.StartsWith("nunit.framework")) {
+                if (assemName.StartsWith("xunit.runner") || assemName.StartsWith("nunit.framework") || assemName.StartsWith("microsoft.testplatform")) {
                     IsRunningAsUnitTest = true;
                     break;
                 }

@@ -1,8 +1,10 @@
 ﻿// Copyright 2023 Treer (https://github.com/Treer)
 // License: MIT, see LICENSE.txt for rights granted
 
+using GameHosting;
 using Godot;
 using MapGen.Helpers;
+using Microsoft.Extensions.Logging;
 using System.Collections.Concurrent;
 
 namespace MapGen.Tiles
@@ -39,7 +41,7 @@ namespace MapGen.Tiles
 
                 #if DEBUG
                 if (Time.GetUnixTimeFromSystem() - _startTime_unix > 5) {
-                    Logger.GlobalLog.LogInformation($"[color=yellow]DeferredTile took {FinishTime_unix - _startTime_unix:F2} seconds[/color] to generate and {Time.GetUnixTimeFromSystem() - FinishTime_unix:F2} to callback. Its thread may have been held up by a debugging image.");
+                    GameHost.Context.Log.LogInformation($"[color=yellow]DeferredTile took {FinishTime_unix - _startTime_unix:F2} seconds[/color] to generate and {Time.GetUnixTimeFromSystem() - FinishTime_unix:F2} to callback. Its thread may have been held up by a debugging image.");
                 }
                 #endif
             };

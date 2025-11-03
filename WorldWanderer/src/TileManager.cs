@@ -206,11 +206,10 @@ namespace MapViewer
 				fixedFramerateDelta = 1.0f / ProjectSettings.GetSetting("editor/movie_writer/fps").AsInt32();
 			}
 
-			var addServicesCallbacks = new List<ConfigureServiceCallback>() {
-				//(serviceCollection, env, config)=> MapGen.MapGen.AddServices(serviceCollection, env, config),
-				MapGen.MapGen.AddServices
+			var hostSubsystems = new List<IHostSubsystem>() {
+				new MapGen.MapGen()
 			};
-			GameHost.Init(OS.GetCmdlineUserArgs(), GetTree().Root, addServicesCallbacks);
+			GameHost.Init(OS.GetCmdlineUserArgs(), GetTree().Root, hostSubsystems);
 
 			FindAvailableTileServers();
 
